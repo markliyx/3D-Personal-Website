@@ -2,6 +2,12 @@ import './style.css';
 
 import * as THREE from 'https://cdn.skypack.dev/three';
 
+// importing images for production 
+import moonTextureImg from './Moon_texture.jpeg';
+import moonNormalImg from './Moon_normal.jpeg';
+import spaceImg from './space.jpeg';
+import headshotImg from './headshot.png';
+
 const scene = new THREE.Scene();
 
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -35,7 +41,7 @@ const gridHelper = new THREE.GridHelper(200,50);
 scene.add(lightHelper, gridHelper);
 
 // Orbit 
-const controls = new OrbitControls(camera, renderer.domElement);
+//const controls = new OrbitControls(camera, renderer.domElement);
 
 // Add stars 
 function addStar() {
@@ -51,11 +57,11 @@ function addStar() {
 Array(200).fill().forEach(addStar);
 
 // Add Space Background
-const spaceTexture = new THREE.TextureLoader().load('space.jpeg');
+const spaceTexture = new THREE.TextureLoader().load(spaceImg);
 scene.background = spaceTexture;
 
 // Avatar 
-const markTexture = new THREE.TextureLoader().load('headshot.png');
+const markTexture = new THREE.TextureLoader().load(headshotImg);
 const mark = new THREE.Mesh(
   new THREE.BoxGeometry(3,3,3),
   new THREE.MeshBasicMaterial({map: markTexture})
@@ -63,8 +69,8 @@ const mark = new THREE.Mesh(
 scene.add(mark);
 
 // Add Moon
-const moonTexture = new THREE.TextureLoader().load('Moon_texture.jpeg');
-const normalTexture = new THREE.TextureLoader().load('Moon_normal.jpeg');
+const moonTexture = new THREE.TextureLoader().load(moonTextureImg);
+const normalTexture = new THREE.TextureLoader().load(moonNormalImg);
 const moon = new THREE.Mesh(
   new THREE.SphereGeometry(3, 32, 32),
   new THREE.MeshStandardMaterial({
@@ -103,7 +109,7 @@ function animate() {
   torus.rotation.y += 0.005;
   torus.rotation.z += 0.01;
 
-  controls.update();
+  //controls.update();
   renderer.render(scene, camera);
 }
 
